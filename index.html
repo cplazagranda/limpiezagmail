@@ -1,58 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Limpieza Remota Gmail</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      background-color: black;
-      color: #00ff00;
-      font-family: 'Courier New', Courier, monospace;
-      padding: 20px;
-    }
-    #terminal {
-      white-space: pre-wrap;
-      line-height: 1.5;
-    }
-    .blinker {
-      display: inline;
-      animation: blink 1s step-start infinite;
-    }
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-  </style>
-</head>
-<body>
-  <div id="terminal"></div><span class="blinker">█</span>
+<script>
+  const lines = [
+    "Iniciando conexión segura con los servidores de Gmail...",
+    "Autenticación exitosa con ID: 2fa-redirect...",
+    "Escaneando buzones...",
+    "Detectados 4521 correos en total.",
+    "Ejecutando filtro por antigüedad y categoría...",
+    "Eliminando correos: promociones (213), redes sociales (345), spam (789)...",
+    "Borrando archivos adjuntos pesados...",
+    "Vaciando papelera y carpeta de spam...",
+    "Sincronizando cambios con la cuenta principal...",
+    "Proceso de limpieza completado con éxito.",
+    "Sesión finalizada. Seguridad restaurada."
+  ];
 
-  <script>
-    const lines = [
-      "Iniciando conexión segura con los servidores de Gmail...",
-      "Autenticación exitosa con ID: 2fa-redirect...",
-      "Escaneando buzones...",
-      "Detectados 4521 correos en total.",
-      "Ejecutando filtro por antigüedad y categoría...",
-      "Eliminando correos: promociones (213), redes sociales (345), spam (789)...",
-      "Borrando archivos adjuntos pesados...",
-      "Vaciando papelera y carpeta de spam...",
-      "Sincronizando cambios con la cuenta principal...",
-      "Proceso de limpieza completado con éxito.",
-      "Sesión finalizada. Seguridad restaurada."
-    ];
+  const terminal = document.getElementById('terminal');
+  let i = 0;
 
-    const terminal = document.getElementById('terminal');
-    let i = 0;
-
-    function writeLine() {
-      if (i < lines.length) {
-        terminal.innerHTML += lines[i++] + "\n";
-        setTimeout(writeLine, 1000);
-      }
+  function writeLine() {
+    if (i < lines.length) {
+      terminal.innerHTML += lines[i++] + "\n";
+      setTimeout(writeLine, 1000);
+    } else {
+      setTimeout(() => {
+        window.close();
+      }, 2000); // Intenta cerrar la ventana después de 2 segundos
     }
+  }
 
-    writeLine();
-  </script>
-</body>
-</html>
+  writeLine();
+</script>
