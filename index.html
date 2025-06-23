@@ -1,31 +1,86 @@
-<script>
-  const lines = [
-    "Iniciando conexión segura con los servidores de Gmail...",
-    "Autenticación exitosa con ID: 2fa-redirect...",
-    "Escaneando buzones...",
-    "Detectados 4521 correos en total.",
-    "Ejecutando filtro por antigüedad y categoría...",
-    "Eliminando correos: promociones (213), redes sociales (345), spam (789)...",
-    "Borrando archivos adjuntos pesados...",
-    "Vaciando papelera y carpeta de spam...",
-    "Sincronizando cambios con la cuenta principal...",
-    "Proceso de limpieza completado con éxito.",
-    "Sesión finalizada. Seguridad restaurada."
-  ];
-
-  const terminal = document.getElementById('terminal');
-  let i = 0;
-
-  function writeLine() {
-    if (i < lines.length) {
-      terminal.innerHTML += lines[i++] + "\n";
-      setTimeout(writeLine, 1000);
-    } else {
-      setTimeout(() => {
-        window.close();
-      }, 2000); // Intenta cerrar la ventana después de 2 segundos
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador Hacker Gmail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      margin: 0; padding: 0;
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
     }
-  }
+    #console {
+      width: 90%;
+      max-width: 600px;
+      height: 60%;
+      background: #111;
+      padding: 10px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      border: 2px solid #0f0;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #0f0;
+      border: none;
+      padding: 10px 20px;
+      font-family: monospace;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:active { background: #0c0; }
+  </style>
+</head>
+<body>
+  <div id="console"></div>
+  <button id="startBtn">Iniciar limpieza remota</button>
 
-  writeLine();
-</script>
+  <script>
+    const lines = [
+      "Iniciando conexión segura con Gmail...",
+      "Autenticación 2FA completada.",
+      "Escaneando buzones: principal, promociones, social...",
+      "Correos pendientes: 4521",
+      "Aplicando filtros avanzados...",
+      "Eliminando promociones (213)...",
+      "Eliminando social (345)...",
+      "Eliminando spam y papelera...",
+      "Borrando archivos adjuntos grandes...",
+      "Sincronizando cambios remotos...",
+      "Limpieza completada con éxito.",
+      "Cerrando sesión."
+    ];
+    const consoleDiv = document.getElementById("console");
+    const btn = document.getElementById("startBtn");
+
+    btn.onclick = () => {
+      btn.style.display = 'none';
+      let i = 0;
+      function next() {
+        if (i < lines.length) {
+          consoleDiv.textContent += lines[i++] + "\n";
+          consoleDiv.scrollTop = consoleDiv.scrollHeight;
+          setTimeout(next, 800);
+        } else {
+          setTimeout(() => {
+            // Intento de cierre
+            window.close();
+            // Si falla, redirijo
+            setTimeout(() => {
+              window.location.href = "https://mail.google.com";
+            }, 1000);
+          }, 1500);
+        }
+      }
+      next();
+    };
+  </script>
+</body>
+</html>
